@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/BenShigeruClark/task-manager/issues"
   },
-  "homepage": "https://github.com/BenShigeruClark/task-manager#readme"
+  "homepage": "https://github.com/BenShigeruClark/task-manager#readme",
+  "dependencies": {
+    "mongodb": "^3.3.5"
+  }
 }
