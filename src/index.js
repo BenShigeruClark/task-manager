@@ -14,9 +14,9 @@ const port = process.env.PORT || 3000
 //     }
 // })
 
-app.use((req, res, next) => {
-    res.status(503).send('503 Server is not available.  Try again in a few minutes!')
-})
+// app.use((req, res, next) => {
+//     res.status(503).send('503 Server is not available.  Try again in a few minutes!')
+// })
 
 app.use(express.json())
 app.use(userRouter, taskRouter)
