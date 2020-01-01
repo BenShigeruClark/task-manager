@@ -18,20 +18,22 @@ router.post('/tasks', auth, async (req, res) => {
   }
 })
 
-router.get('/tasks', async (req, res) => {
+router.get('/tasks', auth, async (req, res) => {
   try {
-      const tasks = await Task.find({})
-      res.send(tasks)
+    //   const tasks = await Task.find({ owner: req.user._id })  - is alternative to above, will work in the same manner
+      await req.user.populate('tasks').execPopulate()
+      res.send(req.user.tasks)
   } catch (e) {
       res.status(500).send()
   }
 })
 
-router.get('/tasks/:id', async (req, res) => {
+// fetches a task by id
+router.get('/tasks/:id', auth, async (req, res) => {
   const _id = req.params.id
 
   try {
-      const task = await Task.findById(_id)
+    const task = await Task.findOne({ _id, owner: req.user._id })  // finds single task and filter by id and owner value
 
       if (!task) {
           return res.status(404).send()

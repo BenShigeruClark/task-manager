@@ -49,10 +49,12 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+// set up virtual property - relationship between user and tasks
+// allows mongoose to figure out relationship between these two
 userSchema.virtual('tasks', {
     ref: 'Task',
-    localField: '_id',
-    foreignField: 'owner'
+    localField: '_id', //local data stored here
+    foreignField: 'owner' // user id data stored here
 })
 
 userSchema.methods.toJSON = function () {
