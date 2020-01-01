@@ -74,6 +74,7 @@ router.patch('/users/me', auth, async (req, res) => {
   }
 })
 
+// removes user account
 router.delete('/users/me', auth, async (req, res) => {
   try {
         await req.user.remove()
