@@ -18,10 +18,21 @@ router.post('/tasks', auth, async (req, res) => {
   }
 })
 
+
+// GET /tasks?completed=false Refactor to limit the tasks we get back
 router.get('/tasks', auth, async (req, res) => {
+  const match = {} 
+  // will only get back the completed tasks that are of true 
+  if (req.query.completed) {
+      match.completed = req.query.completed === 'true'
+  }
+
   try {
     //   const tasks = await Task.find({ owner: req.user._id })  - is alternative to above, will work in the same manner
-      await req.user.populate('tasks').execPopulate()
+      await req.user.populate({
+          path: 'tasks',
+          match
+      }).execPopulate()
       res.send(req.user.tasks)
   } catch (e) {
       res.status(500).send()
