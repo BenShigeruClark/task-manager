@@ -48,6 +48,8 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+}, {
+    timestamps: true // Creates a timestamp for createdAt and updatedAt, could be used for server and browser
 })
 
 // set up virtual property - relationship between user and tasks

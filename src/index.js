@@ -35,7 +35,7 @@ const main = async () => {
     // await task.populate('owner').execPopulate()
     // console.log(task.owner)
 
-    const user = await User.findById('5e0ae612841cccd2e3997718')
+    const user = await User.findById('')
     await user.populate('tasks').execPopulate() // finds all tasks and stores on user array
     console.log(user.tasks)
 }
