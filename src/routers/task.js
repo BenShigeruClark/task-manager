@@ -21,9 +21,15 @@ router.post('/tasks', auth, async (req, res) => {
 // GET /tasks?completed=false Refactor to limit the tasks we get back
 router.get('/tasks', auth, async (req, res) => {
   const match = {} 
+  const sort = {}
   // will only get back the completed tasks that are of true 
   if (req.query.completed) {
       match.completed = req.query.completed === 'true'
+  }
+
+  if (req.query.sortBy) {
+      const parts = req.query.sortBy.split(':')
+      sort[parts[0]] = parts[1] === 'desc' ? -1 : 1  //use ternary operator to return data in desc or asc order
   }
 
   try {
@@ -33,7 +39,8 @@ router.get('/tasks', auth, async (req, res) => {
           match, 
           options: {
               limit: parseInt(req.query.limit), // limiting tasks with pagination ex. GET /tasks?limit=10&skip=10
-              skip: parseInt(req.query.skip)
+              skip: parseInt(req.query.skip),
+              sort
           }
       }).execPopulate()
       res.send(req.user.tasks)
