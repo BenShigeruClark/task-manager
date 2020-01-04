@@ -85,11 +85,11 @@ router.delete('/users/me', auth, async (req, res) => {
   }
 })
 
-const upload = multer({
+const upload = multer({  // Sends post requests to avatars directory
     dest: 'avatars'
 })
 
-router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
+router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {  // upload post request url path
     res.send()
 })
 
