@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 7,
+        minlength: 8,
         trim: true,
         validate(value) {
             if (value.toLowerCase().includes('password')) {
@@ -47,7 +47,10 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    avatar: {
+        type: Buffer
+    }
 }, {
     timestamps: true // Creates a timestamp for createdAt and updatedAt, could be used for server and browser
 })
