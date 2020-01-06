@@ -14,11 +14,11 @@ const upload = multer({
         fileSize: 1000000 // this object uses key value of limits to limit up to 1mb file size
     },
     fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(doc|docx)$/)) {
+            return cb(new Error('Please upload a Word document')) // If file is not a word document then this callback error will run
+        }
 
-
-        // cb(new Error('File must be a PDF'))
-        // cb(undefined, true)
-        // cb(undefined, false)
+        cb(undefined, true)
     }
 })
 app.post('/upload', upload.single('upload'), (req, res) => {
