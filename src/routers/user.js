@@ -86,11 +86,22 @@ router.delete('/users/me', auth, async (req, res) => {
 })
 
 const upload = multer({  // Sends post requests to avatars directory
-    dest: 'avatars'
+    dest: 'avatars', // Destination avatars directory
+    limits: {
+        fileSize: 1000000 // Limits file size to 1mb
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) { // Only allows image files to be uploaded
+            return cb(new Error('Please upload jpeg or png files only')) // Return this error if file upload is not an image file
+        }
+        cb(undefined, true)
+    }
 })
 
 router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {  // upload post request url path
     res.send()
 })
+
+
 
 module.exports = router
